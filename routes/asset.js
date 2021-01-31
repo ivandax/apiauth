@@ -10,7 +10,6 @@ router.post('/', verify, async (req, res) => {
     if (validation.error !== undefined) {
         return res.status(400).send(validation.error.details[0].message);
     }
-
     const asset = new Asset({
         name: validation.value.name,
         type: validation.value.type,
@@ -21,6 +20,13 @@ router.post('/', verify, async (req, res) => {
     } catch (err) {
         res.status(400).send(err);
     }
+});
+
+router.get('/', verify, (req, res) => {
+    Asset.find({}).then((assets) => {
+        console.log(assets);
+        res.json(assets);
+    });
 });
 
 module.exports = router;
