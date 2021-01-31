@@ -22,11 +22,9 @@ router.post('/', verify, async (req, res) => {
     }
 });
 
-router.get('/', verify, (req, res) => {
-    Asset.find({}).then((assets) => {
-        console.log(assets);
-        res.json(assets);
-    });
+router.get('/', verify, async (req, res) => {
+    const assets = await Asset.find({});
+    res.json(assets);
 });
 
 module.exports = router;
